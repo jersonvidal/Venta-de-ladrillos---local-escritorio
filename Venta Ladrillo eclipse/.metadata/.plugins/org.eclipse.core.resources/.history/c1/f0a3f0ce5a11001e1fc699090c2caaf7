@@ -1,0 +1,110 @@
+package cibertec;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class DialogoAcercadeTienda extends JDialog implements ActionListener {
+	private JLabel lblTienda;
+	private JLabel lblAutores;
+	private JLabel lblLinea;
+	private JLabel lblAron;
+	private JLabel lblYoel;
+	private JLabel lblLuis;
+	private JLabel lblRix;
+	private JLabel lblDeybi;
+	private JLabel lblRené;
+	private JButton btnCerrar;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DialogoAcercadeTienda dialog = new DialogoAcercadeTienda();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DialogoAcercadeTienda() {
+		setModal(true);
+		setTitle("Acerca de Tienda");
+		setBounds(100, 100, 450, 349);
+		getContentPane().setLayout(null);
+		
+		lblTienda = new JLabel("Tienda 1.0");
+		lblTienda.setForeground(new Color(0, 0, 0));
+		lblTienda.setFont(new Font("Tahoma", Font.BOLD, 19));
+		lblTienda.setBounds(163, 11, 101, 32);
+		getContentPane().add(lblTienda);
+		
+		lblAutores = new JLabel("Autores");
+		lblAutores.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		lblAutores.setBounds(189, 75, 60, 14);
+		getContentPane().add(lblAutores);
+		
+		lblLinea = new JLabel("______________________________________________________________________");
+		lblLinea.setBounds(10, 43, 436, 14);
+		getContentPane().add(lblLinea);
+		
+		lblAron = new JLabel("Aron ");
+		lblAron.setBounds(189, 110, 49, 14);
+		getContentPane().add(lblAron);
+		
+		lblYoel = new JLabel("Yoel Carlos Quiroga Victorio");
+		lblYoel.setBounds(165, 135, 138, 14);
+		getContentPane().add(lblYoel);
+		
+		lblLuis = new JLabel("Luis Angel Carrera Reyes");
+		lblLuis.setBounds(163, 159, 138, 14);
+		getContentPane().add(lblLuis);
+		
+		lblRix = new JLabel("Rix Jhonny Huzco Piuca");
+		lblRix.setBounds(163, 184, 127, 14);
+		getContentPane().add(lblRix);
+		
+		lblDeybi = new JLabel("Jerson Deiby Vidal Flores");
+		lblDeybi.setBounds(163, 211, 114, 14);
+		getContentPane().add(lblDeybi);
+		
+		lblRené = new JLabel("Ren\u00E9 Yherson ");
+		lblRené.setBounds(173, 236, 101, 14);
+		getContentPane().add(lblRené);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(177, 278, 89, 23);
+		getContentPane().add(btnCerrar);
+
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		System.exit(0);
+	}
+}

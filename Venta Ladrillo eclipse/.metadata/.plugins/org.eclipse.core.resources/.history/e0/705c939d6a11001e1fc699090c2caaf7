@@ -1,0 +1,192 @@
+package cibertec;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+
+public class DialogoGenerarReportes extends JDialog implements ActionListener {
+	private JLabel lblTipodeReporte;
+	private JComboBox<String> comboBox;
+	private JButton btnCerrar;
+	private JScrollPane scrollPane;
+	private JTextArea textArea;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DialogoGenerarReportes dialog = new DialogoGenerarReportes();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DialogoGenerarReportes() {
+		setTitle("Generar Reportes");
+		setModal(true);
+		setBounds(100, 100, 694, 509);
+		getContentPane().setLayout(null);
+		
+		lblTipodeReporte = new JLabel("Tipo de reporte");
+		lblTipodeReporte.setBounds(10, 21, 83, 14);
+		getContentPane().add(lblTipodeReporte);
+		
+		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Ventas por modelo", "Comparaci\u00F3n  con el  precio promedio", "Comparaci\u00F3n  con la cantidad \u00F3ptima", "Estad\u00EDsticas general"}));
+		comboBox.setBounds(103, 17, 249, 22);
+		getContentPane().add(comboBox);
+		comboBox.addActionListener(this);
+	
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(438, 17, 89, 23);
+		getContentPane().add(btnCerrar);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 46, 658, 413);
+		getContentPane().add(scrollPane);
+		
+		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+		actionPerformedCboTipo(null);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+		if (e.getSource() == comboBox) {
+			actionPerformedCboTipo(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		dispose();
+	}
+	protected void actionPerformedCboTipo(ActionEvent e) {
+		int tipo;
+		tipo = tipoDeReporte();
+		switch(tipo) {
+		case 0: mostrarReporteVentasMod(); break;
+		case 1: mostrarReporteComparacionPromedio(); break;
+		case 2: mostrarReporteComparacionCantidadOptima(); break;
+		default:
+		}
+	}
+	int tipoDeReporte() {
+		return comboBox.getSelectedIndex();
+	}
+	 void mostrarReporteVentasMod() {
+		    textArea.setText("VENTAS POR MODELO" + "\n" + "\n");
+		    reporteVentasPorModelo(Tienda1.modelo0, Tienda1.cantidadVentas0, Tienda1.cantidadMillaresVendidos0, Tienda1.importeTotalAcumulado0);
+		    reporteVentasPorModelo(Tienda1.modelo1, Tienda1.cantidadVentas1, Tienda1.cantidadMillaresVendidos1, Tienda1.importeTotalAcumulado1);
+		    reporteVentasPorModelo(Tienda1.modelo2, Tienda1.cantidadVentas2, Tienda1.cantidadMillaresVendidos2, Tienda1.importeTotalAcumulado2);
+		    reporteVentasPorModelo(Tienda1.modelo3, Tienda1.cantidadVentas3, Tienda1.cantidadMillaresVendidos3, Tienda1.importeTotalAcumulado3);
+		    reporteVentasPorModelo(Tienda1.modelo4, Tienda1.cantidadVentas4, Tienda1.cantidadMillaresVendidos4, Tienda1.importeTotalAcumulado4);
+
+			}
+	 
+	 void reporteVentasPorModelo(String mod, int canven, int canmill, double imptot) {
+            double por;
+            por = Tienda1.importeTotalRecaudado == 0 ? 0 : (imptot / Tienda1.importeTotalRecaudado)*100;
+            /*
+            if (Tienda1.importeTotalRecaudado == 0) {
+            	por = 0;
+    		} else {
+    			por = (imptot / Tienda1.importeTotalRecaudado)*100;
+    		}*/
+		    textArea.append("Modelo                       : " + mod + "\n");
+			textArea.append("Cantidad de ventas           : " + canven + "\n");
+			textArea.append("Cantidad de millares vendidos: " + canmill + "\n");
+			textArea.append("Importe total acumulado      : S/." + imptot + " (" + String.format("%.2f",por)  + "% del total general)\n \n");
+			
+	 }
+	 void mostrarReporteComparacionPromedio() {
+		 textArea.setText("COMPARACIÓN CON EL PRECIO PROMEDIO" + "\n" + "\n");
+		 reporteComparacionPromedioPorModelo(Tienda1.modelo0, Tienda1.precio0, Tienda1.cantidadMillaresVendidos0, Tienda1.importeTotalAcumulado0);
+		 reporteComparacionPromedioPorModelo(Tienda1.modelo1, Tienda1.precio1, Tienda1.cantidadMillaresVendidos1, Tienda1.importeTotalAcumulado1);
+		 reporteComparacionPromedioPorModelo(Tienda1.modelo2, Tienda1.precio2, Tienda1.cantidadMillaresVendidos2, Tienda1.importeTotalAcumulado2);
+		 reporteComparacionPromedioPorModelo(Tienda1.modelo3, Tienda1.precio3, Tienda1.cantidadMillaresVendidos3, Tienda1.importeTotalAcumulado3);
+		 reporteComparacionPromedioPorModelo(Tienda1.modelo4, Tienda1.precio4, Tienda1.cantidadMillaresVendidos4, Tienda1.importeTotalAcumulado4);
+
+			}
+	 void reporteComparacionPromedioPorModelo(String mod, double pre, int canmill, double imptot) {
+           double dif, prepro;
+           prepro = canmill==0 ? pre : (imptot / canmill);
+           dif = prepro - pre;
+           String mensajedif;
+           if (dif < 0 ) {
+           	mensajedif = String.format("%.2f",Math.abs(dif)) + " menos que el promedio";
+   		} else if(dif == 0){
+   			mensajedif = "igual que el promedio";
+   		}
+   		else {   
+   			mensajedif = String.format("%.2f",dif) + " más que el promedio";
+   				}
+            textArea.append("Modelo         : " + mod + "\n");
+			textArea.append("Precio         : " + pre + "\n");
+			textArea.append("Precio promedio: " + String.format("%.2f",prepro) + "\n");
+			textArea.append("Comparacion    : " + mensajedif + "\n\n");
+	 }
+	 void mostrarReporteComparacionCantidadOptima() {
+		   textArea.setText("COMPARACIÓN CON LA CANTIDAD ÓPTIMA" + "\n" + "\n");
+		   reporteComparacionCantidadOptima(Tienda1.modelo0, Tienda1.cantidadMillaresVendidos0, Tienda1.cantidadOptima0);
+		   reporteComparacionCantidadOptima(Tienda1.modelo1, Tienda1.cantidadMillaresVendidos1, Tienda1.cantidadOptima1);
+		   reporteComparacionCantidadOptima(Tienda1.modelo2, Tienda1.cantidadMillaresVendidos2, Tienda1.cantidadOptima2);
+		   reporteComparacionCantidadOptima(Tienda1.modelo3, Tienda1.cantidadMillaresVendidos3, Tienda1.cantidadOptima3);
+		   reporteComparacionCantidadOptima(Tienda1.modelo4, Tienda1.cantidadMillaresVendidos4, Tienda1.cantidadOptima4);
+
+			}
+	 void reporteComparacionCantidadOptima(String mod, int canmill, int cano){
+		 int dif;
+		 String mensajedif;
+		 dif = canmill - cano;
+		 if(dif<0) {
+			 mensajedif = Math.abs(dif) + " menos que la cantidad óptima";
+		 }
+		 else if(dif == 0) {
+	   			mensajedif = "igual que la cantidad óptima";
+		 }
+		 else {
+			 mensajedif = dif + " más que la cantidad óptima";
+		 }
+		 
+		 textArea.append("Modelo         : " + mod + "\n");
+			textArea.append("Precio         : " + canmill + "\n");
+			textArea.append("Precio promedio: " + cano + "\n");
+			textArea.append("Comparacion    : " + mensajedif + "\n\n");
+		 
+	 }
+	 void mostrarReporteEstadistica() {
+		 
+	 }
+	 double precioPromedio() {
+		 double suma;
+		 suma = Tienda1.precio0 + Tienda1.precio1 + Tienda1.precio2 + Tienda1.precio3 + Tienda1.precio4;
+		 return suma/5;
+	 }
+}

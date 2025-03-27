@@ -1,0 +1,137 @@
+package cibertec;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+
+public class DialogoListar extends JDialog implements ActionListener {
+	private JButton btnCerrar;
+	private JButton btnListar;
+	private JTextArea txtS;
+	private final JScrollPane scrollPane = new JScrollPane();
+	private JPanel panel;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DialogoListar dialog = new DialogoListar();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DialogoListar() {
+		setModal(true);
+		setTitle("Listar ladrillo");
+		setBounds(100, 100, 620, 424);
+		getContentPane().setLayout(null);
+		
+		btnListar = new JButton("Listar");
+		btnListar.setBounds(287, 351, 89, 23);
+		getContentPane().add(btnListar);
+		scrollPane.setBounds(10, 11, 584, 329);
+		getContentPane().add(scrollPane);
+		btnListar.addActionListener(this);
+		
+		txtS = new JTextArea();
+		txtS.setEditable(false);
+		scrollPane.setViewportView(txtS);
+		
+		panel = new JPanel();
+		panel.setBounds(0, 0, 594, 340);
+		getContentPane().add(panel);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.setBounds(205, 351, 63, 23);
+		getContentPane().add(btnCerrar);
+		btnCerrar.addActionListener(this);
+
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+		if (e.getSource() == btnListar) {
+			actionPerformedBtnListar(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		dispose();
+	}
+	protected void actionPerformedBtnListar(ActionEvent e) {
+		txtS.setText("");
+		mostrarDatos(Tienda1.modelo0, Tienda1.precio0, Tienda1.ancho0 , Tienda1.largo0, Tienda1.cantidadOptima0);
+		mostrarDatos(Tienda1.modelo1, Tienda1.precio1, Tienda1.ancho1 , Tienda1.largo1, Tienda1.cantidadOptima1);
+		mostrarDatos(Tienda1.modelo2, Tienda1.precio2, Tienda1.ancho2 , Tienda1.largo2, Tienda1.cantidadOptima2);
+		mostrarDatos(Tienda1.modelo3, Tienda1.precio3, Tienda1.ancho3 , Tienda1.largo3, Tienda1.cantidadOptima3);
+		mostrarDatos(Tienda1.modelo4, Tienda1.precio4, Tienda1.ancho4 , Tienda1.largo4, Tienda1.cantidadOptima4);
+		
+	}
+    void mostrarDatos(String mod, double pre, double anc, double lar, int cano) {
+    	imprimir("Modelo                     :" + mod);
+    	imprimir("Precio                     :" + pre + "" );
+    	imprimir("Ancho (cm)                 :" + anc + "" );
+    	imprimir("Espesor (mm)               :" + lar + "");
+    	imprimir("Cantidad Optima (millares) :" + cano + "" + "\n" );
+
+    }
+    void imprimir(String cad) {
+    	txtS.append(cad + "\n");
+    }
+	/*
+	protected void actionperformedBtnListar(ActionEvent e) {
+		txtS.setText("LISTADO DE LADRILLOS " + "\n" + "\n" );
+		txtS.append("Modelo                    :" + Tienda1.modelo0 + "\n" );
+		txtS.append("Precio                    :" + Tienda1.precio0 + "\n" );
+		txtS.append("Ancho (cm)                :" + Tienda1.ancho0 + "\n" );
+		txtS.append("Espesor (mm)              :" + Tienda1.largo0 + "\n" );
+		txtS.append("Cantidad Optima (millares):" + Tienda1.cantidadOptima0 + "\n" + "\n");
+		txtS.append("Modelo                    :" + Tienda1.modelo1 + "\n" );
+		txtS.append("Precio                    :" + Tienda1.precio1 + "\n" );
+		txtS.append("Ancho (cm)                :" + Tienda1.ancho1 + "\n" );
+		txtS.append("Espesor (mm)              :" + Tienda1.largo1 + "\n" );
+		txtS.append("Cantidad Optima (millares):" + Tienda1.cantidadOptima1 + "\n" + "\n");
+		txtS.append("Modelo                    :" + Tienda1.modelo2 + "\n" );
+		txtS.append("Precio                    :" + Tienda1.precio2 + "\n" );
+		txtS.append("Ancho (cm)                :" + Tienda1.ancho2 + "\n" );
+		txtS.append("Espesor (mm)              :" + Tienda1.largo2 + "\n" );
+		txtS.append("Cantidad Optima (millares):" + Tienda1.cantidadOptima2 + "\n" + "\n" );
+		txtS.append("Modelo                    :" + Tienda1.modelo3 + "\n" );
+		txtS.append("Precio                    :" + Tienda1.precio3 + "\n" );
+		txtS.append("Ancho (cm)                :" + Tienda1.ancho3 + "\n" );
+		txtS.append("Espesor (mm)              :" + Tienda1.largo3 + "\n" );
+		txtS.append("Cantidad Optima (millares):" + Tienda1.cantidadOptima3 + "\n" + "\n" );
+		txtS.append("Modelo                    :" + Tienda1.modelo4 + "\n" );
+		txtS.append("Precio                    :" + Tienda1.precio4 + "\n" );
+		txtS.append("Ancho (cm)                :" + Tienda1.ancho4 + "\n" );
+		txtS.append("Espesor (mm)              :" + Tienda1.largo4 + "\n" );
+		txtS.append("Cantidad Optima (millares):" + Tienda1.cantidadOptima4 + "\n" );
+
+
+		
+	} */
+}

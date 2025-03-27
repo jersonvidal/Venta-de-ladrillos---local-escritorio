@@ -1,0 +1,274 @@
+package cibertec;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.UIManager;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Tienda1 extends JFrame implements ActionListener {
+
+	public static String modelo0 = "Ladrillo King Kong 18 Huecos";
+	public static double precio0 = 610.0;
+	public static double ancho0 = 12.5;
+	public static double largo0 = 23.0;
+	public static double espesor0 = 9;
+	public static int cantidadOptima0 = 6;
+	
+	public static String modelo1 = "Ladrillo King Kong Macizo";
+	public static double precio1 = 920.0;
+	public static double ancho1 = 12.0;
+	public static double largo1 = 21.0;
+	public static double espesor1 = 9.0;
+	public static int cantidadOptima1 = 6;
+	
+	public static String modelo2 = "Ladrillo Pandereta Acanalada";
+	public static double precio2 = 510.0;
+	public static double ancho2 = 10.5;
+	public static double largo2 = 23;
+	public static double espesor2 = 9.0;
+	public static int cantidadOptima2 = 6;
+	
+	public static String modelo3 = "Ladrillo Patelero";
+	public static double precio3 = 2200.0;
+	public static double ancho3 = 24.0;
+	public static double largo3 = 24.0;
+	public static double espesor3 = 3;
+	public static int cantidadOptima3 = 6;
+
+	public static String modelo4 = "Ladrillo Techo Hueco";
+	public static double precio4 = 2350.0;
+	public static double ancho4 = 30.0;
+	public static double largo4 = 30.0;
+	public static double espesor4 = 15.0;
+	public static int cantidadOptima4 = 6;
+	
+	public static double porcentaje1 = 0.05;
+	public static double porcentaje2 = 0.075;
+	public static double porcentaje3 = 0.1;
+	public static double porcentaje4 = 0.125;
+	public static double porcentaje5 = 0.15;
+
+	public static String tipoObsequio = "Badilejo";
+	public static int obsequioCantidad1 = 1;
+	public static int obsequioCantidad2 = 3;
+	public static int obsequioCantidad3 = 5;
+	public static int obsequioCantidad4 = 7;
+	public static int obsequioCantidad5 = 9;
+	
+	// VENTAS
+	public static int numeroVentas = 0;
+	public static double importeTotalRecaudado = 0.0;
+	
+	
+	private JPanel contentPane;
+	private JMenuBar menuBar;
+	private JMenu mnArchivo;
+	private JMenuItem mntmSalir;
+	private JMenu mnAyuda;
+	private JMenuItem mntmAcercadetienda;
+	private JMenu mnMantenimiento;
+	private JMenuItem mntmConsultarladrillo;
+	private JMenuItem mntmModificarladrillo;
+	private JMenuItem mntmListarladrillo;
+	private JMenu mnVentas;
+	private JMenuItem mntmVender;
+	private JMenuItem mntmGenerarreportes;
+	private JMenu mnConfiguración;
+	private JMenuItem mntmCongdescuentos;
+	private JMenuItem mntmCongobsequios;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Tienda1 frame = new Tienda1();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Tienda1() {
+		setTitle("Tienda 1.0");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 843, 545);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		mnArchivo = new JMenu("Archivo");
+		mnArchivo.setBackground(Color.WHITE);
+		mnArchivo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		menuBar.add(mnArchivo);
+		
+		mntmSalir = new JMenuItem("Salir");
+		mntmSalir.addActionListener(this);
+		mntmSalir.setBackground(Color.LIGHT_GRAY);
+		mnArchivo.add(mntmSalir);
+		
+		mnMantenimiento = new JMenu("Mantenimiento");
+		menuBar.add(mnMantenimiento);
+		
+		mntmConsultarladrillo = new JMenuItem("Consultar ladrillo");
+		mntmConsultarladrillo.addActionListener(this);
+		mnMantenimiento.add(mntmConsultarladrillo);
+		
+		mntmModificarladrillo = new JMenuItem("Modificar ladrillo");
+		mntmModificarladrillo.addActionListener(this);
+		mnMantenimiento.add(mntmModificarladrillo);
+		
+		mntmListarladrillo = new JMenuItem("Listar ladrillo");
+		mntmListarladrillo.addActionListener(this);
+		mnMantenimiento.add(mntmListarladrillo);
+		
+		mnVentas = new JMenu("Ventas");
+		menuBar.add(mnVentas);
+		
+		mntmVender = new JMenuItem("Vender");
+		mntmVender.addActionListener(this);
+		mnVentas.add(mntmVender);
+		
+		mntmGenerarreportes = new JMenuItem("Generar reportes");
+		mntmGenerarreportes.addActionListener(this);
+		mnVentas.add(mntmGenerarreportes);
+		
+		mnConfiguración = new JMenu("Configuraci\u00F3n");
+		menuBar.add(mnConfiguración);
+		
+		mntmCongdescuentos = new JMenuItem("Configuraci\u00F3n descuentos");
+		mntmCongdescuentos.addActionListener(this);
+		mnConfiguración.add(mntmCongdescuentos);
+		
+		mntmCongobsequios = new JMenuItem("Configuraci\u00F3n obsequios");
+		mntmCongobsequios.addActionListener(this);
+		mnConfiguración.add(mntmCongobsequios);
+		
+		mnAyuda = new JMenu("Ayuda");
+		menuBar.add(mnAyuda);
+		
+		mntmAcercadetienda = new JMenuItem("Acerca de tienda ");
+		mntmAcercadetienda.addActionListener(this);
+		mnAyuda.add(mntmAcercadetienda);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmAcercadetienda) {
+			actionPerformedMntmAcercadetienda(e);
+		}
+		if (e.getSource() == mntmCongobsequios) {
+			actionPerformedMntmCongobsequios(e);
+		}
+		if (e.getSource() == mntmCongdescuentos) {
+			actionPerformedMntmCongdescuentos(e);
+		}
+		if (e.getSource() == mntmGenerarreportes) {
+			actionPerformedMntmGenerarreportes(e);
+		}
+		if (e.getSource() == mntmVender) {
+			actionPerformedMntmVender(e);
+		}
+		if (e.getSource() == mntmListarladrillo) {
+			actionPerformedMntmListarladrillo(e);
+		}
+		if (e.getSource() == mntmModificarladrillo) {
+			actionPerformedMntmModificarladrillo(e);
+		}
+		if (e.getSource() == mntmConsultarladrillo) {
+			actionPerformedMntmConsultarladrillo(e);
+		}
+		if (e.getSource() == mntmSalir) {
+			actionPerformedMntmSalir(e);
+		}
+	}
+	protected void actionPerformedMntmSalir(ActionEvent e) {
+		System.exit(0);
+	}
+	protected void actionPerformedMntmConsultarladrillo(ActionEvent e) {
+		DialogoConsultar c;
+		
+		c = new DialogoConsultar();
+		c.setLocationRelativeTo(this);
+		c.setVisible(true);
+		
+		
+	}
+	
+	protected void actionPerformedMntmModificarladrillo(ActionEvent e) {
+		DialogoModificar m;
+		
+		m = new DialogoModificar();
+		m.setLocationRelativeTo(this);
+		m.setVisible(true);
+	}
+	protected void actionPerformedMntmListarladrillo(ActionEvent e) {
+		DialogoListar l;
+		
+		l = new DialogoListar();
+		l.setLocationRelativeTo(this);
+		l.setVisible(true);
+	}
+	protected void actionPerformedMntmVender(ActionEvent e) {
+		DialogoVender v;
+		
+		v = new DialogoVender();
+		v.setLocationRelativeTo(this);
+		v.setVisible(true);
+	}
+	protected void actionPerformedMntmGenerarreportes(ActionEvent e) {
+		DialogoGenerarReportes g;
+		
+		g = new DialogoGenerarReportes();
+		g.setLocationRelativeTo(this);
+		g.setVisible(true);
+	}
+	protected void actionPerformedMntmCongdescuentos(ActionEvent e) {
+		DialogoCongDescuento des;
+		
+		des = new DialogoCongDescuento();
+		des.setLocationRelativeTo(this);
+		des.setVisible(true);
+	}
+	protected void actionPerformedMntmCongobsequios(ActionEvent e) {
+		DialogoCongObsequios o;
+		
+		o = new DialogoCongObsequios();
+		o.setLocationRelativeTo(this);
+		o.setVisible(true);
+	}
+	protected void actionPerformedMntmAcercadetienda(ActionEvent e) {
+		DialogoAcercadeTienda a;
+		
+		a = new DialogoAcercadeTienda();
+		a.setLocationRelativeTo(this);
+		a.setVisible(true);
+	}
+
+
+}

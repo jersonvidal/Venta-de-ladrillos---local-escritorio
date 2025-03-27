@@ -1,0 +1,264 @@
+package cibertec;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class DialogoVender extends JDialog implements ActionListener {
+	private JLabel lblModelo;
+	private JLabel lblPrecio;
+	private JLabel lblCantidad;
+	private JTextField txtPrecio;
+	private JTextField txtCantidad;
+	private JComboBox<String> cboModelo;
+	private JButton btnVender;
+	private JButton btnCerrar;
+	private JTextArea textArea;
+	private final JScrollPane scrollPane = new JScrollPane();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DialogoVender dialog = new DialogoVender();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DialogoVender() {
+		setModal(true);
+		setTitle("Vender");
+		setBounds(100, 100, 489, 306);
+		getContentPane().setLayout(null);
+		
+		lblModelo = new JLabel("Modelo");
+		lblModelo.setBounds(10, 11, 49, 14);
+		getContentPane().add(lblModelo);
+		
+		lblPrecio = new JLabel("Precio (S/)");
+		lblPrecio.setBounds(10, 36, 63, 14);
+		getContentPane().add(lblPrecio);
+		
+		lblCantidad = new JLabel("Cantidad");
+		lblCantidad.setBounds(10, 61, 49, 14);
+		getContentPane().add(lblCantidad);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setEditable(false);
+		txtPrecio.setBounds(83, 33, 188, 20);
+		getContentPane().add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		txtCantidad = new JTextField();
+		txtCantidad.setBounds(83, 58, 188, 20);
+		getContentPane().add(txtCantidad);
+		txtCantidad.setColumns(10);
+		
+		cboModelo = new JComboBox<String>();
+		cboModelo.setModel(new DefaultComboBoxModel<String>(new String[] {"Ladrillo King Kong 18 Huecos", "Ladrillo King kong Macizo", "Ladrillo Pandereta Acanalada", "Ladrillo Patelero", "Ladrillo Techo Hueco"}));
+		cboModelo.setBounds(83, 7, 188, 22);
+		getContentPane().add(cboModelo);
+		cboModelo.addActionListener(this);
+		actionPerformedCboModelo(null);
+		
+		btnVender = new JButton("Vender");
+		btnVender.setBounds(376, 7, 89, 23);
+		getContentPane().add(btnVender);
+		btnVender.addActionListener(this);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(376, 32, 89, 23);
+		getContentPane().add(btnCerrar);
+		scrollPane.setBounds(10, 86, 455, 169);
+		getContentPane().add(scrollPane);
+		
+		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+		if(e.getSource() == cboModelo) {
+			actionPerformedCboModelo(e);
+		}
+		if(e.getSource() == btnVender) {
+			actionPerformedBtnVender(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		dispose();
+	}
+	
+	 protected void actionPerformedCboModelo(ActionEvent e) {
+			
+			int mod;
+			mod = leerModelo();
+			switch(mod) {
+			case 0: 
+				mostrarLadrillo(Tienda1.precio0); break;
+			case 1:
+				mostrarLadrillo(Tienda1.precio1); break; 
+			case 2:
+				mostrarLadrillo(Tienda1.precio2); break;
+			case 3:
+				mostrarLadrillo(Tienda1.precio3); break;
+				default: 
+					mostrarLadrillo(Tienda1.precio4);
+			}
+	 }
+	 int leerModelo() {
+		 return cboModelo.getSelectedIndex();
+	 }
+	 void mostrarLadrillo(double pre) {
+			txtPrecio.setText("" + pre);
+			}
+	 
+	 protected void actionPerformedBtnVender(ActionEvent e) {
+		 int can, mod, cano;
+		 double icom, ides, ipag;
+		 mod = leerModelo();
+		 can = leerCantidad();
+		 icom = importeCompra(mod, can);
+		 ides = importeDescuento(can, icom);
+		 ipag = importePagar(icom, ides);
+		 cano = calcularObsequio(can);
+		 acumularVentas(mod, can, ipag);
+		switch(mod) {
+		case 0: mostrarDatos(Tienda1.modelo0, Tienda1.precio0, icom, ides, ipag, cano, Tienda1.tipoObsequio); break;
+		case 1: mostrarDatos(Tienda1.modelo1, Tienda1.precio1, icom, ides, ipag, cano, Tienda1.tipoObsequio); break;
+		case 2: mostrarDatos(Tienda1.modelo2, Tienda1.precio2, icom, ides, ipag, cano, Tienda1.tipoObsequio); break;
+		case 3: mostrarDatos(Tienda1.modelo3, Tienda1.precio3, icom, ides, ipag, cano, Tienda1.tipoObsequio); break;
+		default: mostrarDatos(Tienda1.modelo4, Tienda1.precio4, icom, ides, ipag, cano, Tienda1.tipoObsequio); break;
+		}
+		lanzarAlerta();
+		
+	 }
+	 int leerCantidad() {
+		 return Integer.parseInt(txtCantidad.getText());
+	 }
+	 double importeCompra(int m, int c) {
+		 switch(m) {
+		 case 0: return Tienda1.precio0 * c;
+		 case 1: return Tienda1.precio1 * c;
+		 case 2: return Tienda1.precio2 * c;
+		 case 3: return Tienda1.precio3 * c;
+		default: return Tienda1.precio4 * c;
+
+		 }
+	 }
+	 double importeDescuento(int c, double ic) {
+		 if (c<5) {
+			 return Tienda1.porcentaje1 * ic;
+		 }
+		 else if(c<10) {
+			 return Tienda1.porcentaje2 * ic;
+		 }
+		 else if(c<15) {
+			 return Tienda1.porcentaje3 * ic;
+		 }
+		 else if (c<20) {
+			 return Tienda1.porcentaje4 * ic;
+		 }
+		 else return Tienda1.porcentaje5 * ic;
+	 }
+	 double importePagar(double ic, double id) {
+		 return ic - id;	 
+	 }
+	 int calcularObsequio(int c) {
+		 if(c<5) {
+			 return Tienda1.obsequioCantidad1;
+		 }
+		 else if(c<10) {
+			 return Tienda1.obsequioCantidad2;
+		 }
+		 else if(c<15) {
+			 return Tienda1.obsequioCantidad3;
+		 }
+		 else if(c<20) {
+			 return Tienda1.obsequioCantidad4;
+		 }
+		 else return Tienda1.obsequioCantidad5;
+	 }
+	 void mostrarDatos(String mod, double pre, double icom, double ides, double ipag, int cano, String tipo) {
+		    textArea.setText("BOLETA DE VENTA" + "\n" + "\n");
+			textArea.append("Modelo              :" + mod + "\n");
+			textArea.append("Precio por millar   :" + pre + "\n");
+			textArea.append("Importe compra      :" + icom + "\n");
+			textArea.append("Importe descuento   :" + ides + "\n");
+			textArea.append("Importa a pagar     :" + ipag + "\n");
+			textArea.append("Precio por millar   :" + tipo + "\n");
+			textArea.append("Unidades a obsequiar:" + cano );
+			}
+	
+	 void acumularVentas(int mod, int can, double ipag) {
+		 Tienda1.numeroVentasTotales++;
+		 Tienda1.numeroMillaresVendidosTotales+=can;
+		 Tienda1.importeTotalRecaudado+=ipag;
+		 switch(mod) {
+			case 0: 
+				Tienda1.cantidadVentas0++;
+				Tienda1.cantidadMillaresVendidos0 += can;
+				Tienda1.importeTotalAcumulado0 += ipag;
+				break;
+			case 1:
+				Tienda1.cantidadVentas1++;
+				Tienda1.cantidadMillaresVendidos1 += can;
+				Tienda1.importeTotalAcumulado1 += ipag;
+				break;
+			case 2:
+				Tienda1.cantidadVentas2++;
+				Tienda1.cantidadMillaresVendidos2 += can;
+				Tienda1.importeTotalAcumulado2 += ipag;
+	             break;
+			case 3:
+				Tienda1.cantidadVentas3++;
+				Tienda1.cantidadMillaresVendidos3 += can;
+				Tienda1.importeTotalAcumulado3 += ipag;
+	            break;
+	         default:
+	        	Tienda1.cantidadVentas4++;
+				Tienda1.cantidadMillaresVendidos4 += can;
+				Tienda1.importeTotalAcumulado4 += ipag;
+	 			break;
+			}
+	}
+	 
+	 void lanzarAlerta() {
+		   if(Tienda1.numeroVentasTotales>0 && Tienda1.numeroVentasTotales%5==0) {
+			   JOptionPane.showMessageDialog(this, "Venta nro. " + Tienda1.numeroVentasTotales + "\n Importe total recaudado: " + Tienda1.importeTotalRecaudado + "\n", "Avance de ventas", JOptionPane.INFORMATION_MESSAGE);
+		   }
+		   
+	}
+	
+}

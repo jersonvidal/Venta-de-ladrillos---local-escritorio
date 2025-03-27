@@ -1,0 +1,217 @@
+package cibertec;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class DialogoCongDescuento extends JDialog implements ActionListener {
+	private JLabel lbl1a5;
+	private JLabel lbl6a10;
+	private JLabel lbl11a15;
+	private JLabel lbl16a20;
+	private JLabel lblMasde20;
+	private JTextField txt1a5;
+	private JTextField txt6a10;
+	private JTextField txt11a15;
+	private JTextField txt16a20;
+	private JTextField txtmasde20;
+	private JButton btnAceptar;
+	private JButton btnCerrar;
+	private JLabel lblPorcen1;
+	private JLabel lblPorcen2;
+	private JLabel lblPorcen3;
+	private JLabel lblPorcen4;
+	private JLabel lblPorcen5;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DialogoCongDescuento dialog = new DialogoCongDescuento();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DialogoCongDescuento() {
+		setModal(true);
+		setTitle("Configurar Porcentajes de Descuento");
+		setBounds(100, 100, 450, 197);
+		getContentPane().setLayout(null);
+		
+		lbl1a5 = new JLabel("1 a 5 millares");
+		lbl1a5.setBounds(10, 27, 67, 14);
+		getContentPane().add(lbl1a5);
+		
+		lbl6a10 = new JLabel("6 a 10 millares");
+		lbl6a10.setBounds(10, 52, 79, 14);
+		getContentPane().add(lbl6a10);
+		
+		lbl11a15 = new JLabel("11 a 15 millares");
+		lbl11a15.setBounds(10, 77, 79, 14);
+		getContentPane().add(lbl11a15);
+		
+		lbl16a20 = new JLabel("16 a 20 millares");
+		lbl16a20.setBounds(10, 102, 79, 14);
+		getContentPane().add(lbl16a20);
+		
+		lblMasde20 = new JLabel("Mas de 20 millares");
+		lblMasde20.setBounds(10, 127, 96, 14);
+		getContentPane().add(lblMasde20);
+		
+		txt1a5 = new JTextField();
+		txt1a5.setBounds(130, 24, 96, 20);
+		getContentPane().add(txt1a5);
+		txt1a5.setColumns(10);
+		
+		txt6a10 = new JTextField();
+		txt6a10.setBounds(130, 49, 96, 20);
+		getContentPane().add(txt6a10);
+		txt6a10.setColumns(10);
+		
+		txt11a15 = new JTextField();
+		txt11a15.setBounds(130, 74, 96, 20);
+		getContentPane().add(txt11a15);
+		txt11a15.setColumns(10);
+		
+		txt16a20 = new JTextField();
+		txt16a20.setBounds(130, 99, 96, 20);
+		getContentPane().add(txt16a20);
+		txt16a20.setColumns(10);
+		
+		txtmasde20 = new JTextField();
+		txtmasde20.setBounds(130, 124, 96, 20);
+		getContentPane().add(txtmasde20);
+		txtmasde20.setColumns(10);
+		
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.setBounds(337, 23, 89, 23);
+		getContentPane().add(btnAceptar);
+		btnAceptar.addActionListener(this);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(337, 48, 89, 23);
+		getContentPane().add(btnCerrar);
+		
+		lblPorcen1 = new JLabel("%");
+		lblPorcen1.setBounds(236, 27, 49, 14);
+		getContentPane().add(lblPorcen1);
+		
+		lblPorcen2 = new JLabel("%");
+		lblPorcen2.setBounds(236, 52, 49, 14);
+		getContentPane().add(lblPorcen2);
+		
+		lblPorcen3 = new JLabel("%");
+		lblPorcen3.setBounds(236, 77, 49, 14);
+		getContentPane().add(lblPorcen3);
+		
+		lblPorcen4 = new JLabel("%");
+		lblPorcen4.setBounds(236, 102, 49, 14);
+		getContentPane().add(lblPorcen4);
+		
+		lblPorcen5 = new JLabel("%");
+		lblPorcen5.setBounds(236, 127, 49, 14);
+		getContentPane().add(lblPorcen5);
+        mostrarPorcentajes();
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+		if (e.getSource() == btnAceptar) {
+			actionPerformedBtnAceptar(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		dispose();
+		
+	}
+	protected void actionPerformedBtnAceptar(ActionEvent e) {
+		double por1, por2, por3, por4, por5;
+		por1 = leerPorcentaje1();
+		por2 = leerPorcentaje2();
+		por3 = leerPorcentaje3();
+		por4 = leerPorcentaje4();
+		por5 = leerPorcentaje5();
+
+		
+		if (por1 < 0) {
+			JOptionPane.showMessageDialog(this, "Porcentaje de 1 a 5 millares debe ser mínimo 0");
+			txt1a5.requestFocus();
+			txt1a5.selectAll();
+		} else if (por2 < 0) {
+			JOptionPane.showMessageDialog(this, "Porcentaje de 6 a 10 millares debe ser mínimo 0");
+			txt6a10.requestFocus();
+			txt6a10.selectAll();
+		} else if (por3 < 0) {
+			JOptionPane.showMessageDialog(this, "Porcentaje de 11 a 15 millares debe ser mínimo 0 ");
+			txt11a15.requestFocus();
+			txt11a15.selectAll();
+		} else if (por4 < 0) {
+			JOptionPane.showMessageDialog(this, "Porcentaje de 16 a 20 millares debe ser mínimo 0");
+			txt16a20.requestFocus();
+			txt16a20.selectAll();
+		} else if (por5 < 0) {
+			JOptionPane.showMessageDialog(this, "Porcentaje de más de 20 millares debe ser mínimo 0");
+			txtmasde20.requestFocus();
+			txtmasde20.selectAll();
+		} else {
+			modificarPorcentajes(por1, por2, por3, por4, por5);
+			dispose();
+		}
+	}
+	double leerPorcentaje1() {
+		return Double.parseDouble(txt1a5.getText());
+	}
+	double leerPorcentaje2() {
+		return Double.parseDouble(txt6a10.getText());
+	}
+	double leerPorcentaje3() {
+		return Double.parseDouble(txt11a15.getText());
+	}
+	double leerPorcentaje4() {
+		return Double.parseDouble(txt16a20.getText());
+	}
+	double leerPorcentaje5() {
+		return Double.parseDouble(txtmasde20.getText());
+	}
+	void modificarPorcentajes(double por1, double por2, double por3, double por4, double por5) {
+		Tienda1.porcentaje1 = Double.parseDouble(String.format("%.1f",por1));
+		Tienda1.porcentaje2 = Double.parseDouble(String.format("%.1f",por2));
+		Tienda1.porcentaje3 = Double.parseDouble(String.format("%.1f",por3));
+		Tienda1.porcentaje4 = Double.parseDouble(String.format("%.1f",por4));
+		Tienda1.porcentaje5 = Double.parseDouble(String.format("%.1f",por5));
+		
+	}
+	void mostrarPorcentajes() {
+		txt1a5.setText(Tienda1.porcentaje1 + "");
+		txt6a10.setText(Tienda1.porcentaje2 + "");
+		txt11a15.setText(Tienda1.porcentaje3 + "");
+		txt16a20.setText(Tienda1.porcentaje4 + "");
+		txtmasde20.setText(Tienda1.porcentaje5 + "");
+	}
+}

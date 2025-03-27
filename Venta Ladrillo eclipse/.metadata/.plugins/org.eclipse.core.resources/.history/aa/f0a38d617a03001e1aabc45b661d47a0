@@ -1,0 +1,135 @@
+package cibertec;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class DialogoModificar extends JDialog implements ActionListener {
+	private JLabel lblModelo;
+	private JLabel lblPrecio;
+	private JLabel lblAncho;
+	private JLabel lblLargo;
+	private JLabel lblEspesor;
+	private JLabel lblCanOptima;
+	private JTextField txtPrecio;
+	private JTextField txtAncho;
+	private JTextField txtLargo;
+	private JTextField txtEspesor;
+	private JTextField txtCanOptima;
+	private JButton btnCerrar;
+	private JComboBox<String> cboModelo;
+	private JButton btnGrabar;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DialogoModificar dialog = new DialogoModificar();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DialogoModificar() {
+		setModal(true);
+		setTitle("Modificar ladrillo");
+		setBounds(100, 100, 460, 229);
+		getContentPane().setLayout(null);
+		
+		lblModelo = new JLabel("Modelo");
+		lblModelo.setBounds(10, 31, 49, 14);
+		getContentPane().add(lblModelo);
+		
+		lblPrecio = new JLabel("Precio (S/)");
+		lblPrecio.setBounds(10, 56, 63, 14);
+		getContentPane().add(lblPrecio);
+		
+		lblAncho = new JLabel("Ancho (cm)");
+		lblAncho.setBounds(10, 81, 63, 14);
+		getContentPane().add(lblAncho);
+		
+		lblLargo = new JLabel("Largo (cm)");
+		lblLargo.setBounds(10, 106, 63, 14);
+		getContentPane().add(lblLargo);
+		
+		lblEspesor = new JLabel("Espesor (mm)");
+		lblEspesor.setBounds(10, 131, 71, 14);
+		getContentPane().add(lblEspesor);
+		
+		lblCanOptima = new JLabel("Can. \u00D3ptima (millares)");
+		lblCanOptima.setBounds(10, 156, 120, 14);
+		getContentPane().add(lblCanOptima);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(134, 53, 177, 20);
+		getContentPane().add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		txtAncho = new JTextField();
+		txtAncho.setBounds(134, 78, 177, 20);
+		getContentPane().add(txtAncho);
+		txtAncho.setColumns(10);
+		
+		txtLargo = new JTextField();
+		txtLargo.setBounds(134, 103, 177, 20);
+		getContentPane().add(txtLargo);
+		txtLargo.setColumns(10);
+		
+		txtEspesor = new JTextField();
+		txtEspesor.setBounds(134, 128, 177, 20);
+		getContentPane().add(txtEspesor);
+		txtEspesor.setColumns(10);
+		
+		txtCanOptima = new JTextField();
+		txtCanOptima.setBounds(134, 153, 177, 20);
+		getContentPane().add(txtCanOptima);
+		txtCanOptima.setColumns(10);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(347, 27, 89, 23);
+		getContentPane().add(btnCerrar);
+		
+		cboModelo = new JComboBox<String>();
+		cboModelo.setModel(new DefaultComboBoxModel<String>(new String[] {"Ladrillo King Kong 18 Huecos", "Ladrillo King Kong Macizo", "Ladrillo Pandereta Acanalada", "Ladrillo Patelero", "Ladrillo Techo Hueco", "Badilejo"}));
+		cboModelo.setBounds(134, 27, 177, 22);
+		getContentPane().add(cboModelo);
+		
+		btnGrabar = new JButton("Grabrar");
+		btnGrabar.setBounds(347, 52, 89, 23);
+		getContentPane().add(btnGrabar);
+
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		System.exit(0);
+	}
+}

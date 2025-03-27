@@ -1,0 +1,318 @@
+package cibertec;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class DialogoModificar extends JDialog implements ActionListener {
+	private JLabel lblModelo;
+	private JLabel lblPrecio;
+	private JLabel lblAncho;
+	private JLabel lblLargo;
+	private JLabel lblEspesor;
+	private JLabel lblCanOptima;
+	private JTextField txtPrecio;
+	private JTextField txtAncho;
+	private JTextField txtLargo;
+	private JTextField txtEspesor;
+	private JTextField txtCanOptima;
+	private JButton btnCerrar;
+	private JComboBox<String> cboModelo;
+	private JButton btnGrabar;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DialogoModificar dialog = new DialogoModificar();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DialogoModificar() {
+		setModal(true);
+		setTitle("Modificar ladrillo");
+		setBounds(100, 100, 460, 229);
+		getContentPane().setLayout(null);
+		
+		lblModelo = new JLabel("Modelo");
+		lblModelo.setBounds(10, 31, 49, 14);
+		getContentPane().add(lblModelo);
+		
+		lblPrecio = new JLabel("Precio (S/)");
+		lblPrecio.setBounds(10, 56, 63, 14);
+		getContentPane().add(lblPrecio);
+		
+		lblAncho = new JLabel("Ancho (cm)");
+		lblAncho.setBounds(10, 81, 63, 14);
+		getContentPane().add(lblAncho);
+		
+		lblLargo = new JLabel("Largo (cm)");
+		lblLargo.setBounds(10, 106, 63, 14);
+		getContentPane().add(lblLargo);
+		
+		lblEspesor = new JLabel("Espesor (mm)");
+		lblEspesor.setBounds(10, 131, 71, 14);
+		getContentPane().add(lblEspesor);
+		
+		lblCanOptima = new JLabel("Can. \u00D3ptima (millares)");
+		lblCanOptima.setBounds(10, 156, 120, 14);
+		getContentPane().add(lblCanOptima);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(134, 53, 177, 20);
+		getContentPane().add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		txtAncho = new JTextField();
+		txtAncho.setBounds(134, 78, 177, 20);
+		getContentPane().add(txtAncho);
+		txtAncho.setColumns(10);
+		
+		txtLargo = new JTextField();
+		txtLargo.setBounds(134, 103, 177, 20);
+		getContentPane().add(txtLargo);
+		txtLargo.setColumns(10);
+		
+		txtEspesor = new JTextField();
+		txtEspesor.setBounds(134, 128, 177, 20);
+		getContentPane().add(txtEspesor);
+		txtEspesor.setColumns(10);
+		
+		txtCanOptima = new JTextField();
+		txtCanOptima.setBounds(134, 153, 177, 20);
+		getContentPane().add(txtCanOptima);
+		txtCanOptima.setColumns(10);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(347, 27, 89, 23);
+		getContentPane().add(btnCerrar);
+		
+		cboModelo = new JComboBox<String>();
+		cboModelo.setModel(new DefaultComboBoxModel<String>(new String[] {"Ladrillo King Kong 18 Huecos", "Ladrillo King Kong Macizo", "Ladrillo Pandereta Acanalada", "Ladrillo Patelero", "Ladrillo Techo Hueco", "Badilejo"}));
+		cboModelo.setBounds(134, 27, 177, 22);
+		getContentPane().add(cboModelo);
+		cboModelo.addActionListener(this);
+	
+		
+		btnGrabar = new JButton("Grabar");
+		btnGrabar.setBounds(347, 52, 89, 23);
+		getContentPane().add(btnGrabar);
+		btnGrabar.addActionListener(this);
+			
+	
+		actionPerformedCboModelo(null);
+		
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+		
+		if (e.getSource() == cboModelo) {
+			actionPerformedCboModelo(e);
+		}
+		
+		if (e.getSource() == btnGrabar) {
+			actionPerformedBtnGrabar(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		//System.exit(0);
+		dispose();
+	}
+	
+	
+	
+	
+	protected void actionPerformedCboModelo(ActionEvent e) {
+		int mod;
+		mod = leerModelo();
+		switch(mod) {
+		case 0: 
+			mostrarLadrillo(Tienda1.precio0, Tienda1.ancho0, Tienda1.largo0, Tienda1.espesor0, Tienda1.cantidadOptima0);
+			break;
+		case 1:
+			mostrarLadrillo(Tienda1.precio1, Tienda1.ancho1, Tienda1.largo1, Tienda1.espesor1, Tienda1.cantidadOptima1);
+			break;
+		case 2:
+			mostrarLadrillo(Tienda1.precio2, Tienda1.ancho2, Tienda1.largo2, Tienda1.espesor2, Tienda1.cantidadOptima2);
+             break;
+		case 3:
+			mostrarLadrillo(Tienda1.precio3, Tienda1.ancho3, Tienda1.largo3, Tienda1.espesor3, Tienda1.cantidadOptima3);
+            break;
+         default:
+ 			mostrarLadrillo(Tienda1.precio4, Tienda1.ancho4, Tienda1.largo4, Tienda1.espesor4, Tienda1.cantidadOptima4);
+	}
+   }
+	int leerModelo() {
+		return cboModelo.getSelectedIndex();
+
+	}  
+
+	void mostrarLadrillo(double pre, double anc, double lar, double esp, int cano) {
+		txtPrecio.setText(pre + "");
+		txtAncho.setText(anc + "");
+		txtLargo.setText(lar + "");
+		txtEspesor.setText(esp + "");
+		txtCanOptima.setText(cano + "");
+	}
+	
+	protected void actionPerformedBtnGrabar(ActionEvent e) {
+		double pre, anc, lar, esp;
+		int cano, mod;
+		mod = leerModelo();
+		pre = leerPrecio();
+		anc = leerAncho();
+		lar = leerLargo();
+		esp = leerEspesor();
+		cano = leerCano();
+		
+		if (pre < 0) {
+			JOptionPane.showMessageDialog(this, "Precio mínimo debe ser mayor que 0");
+			txtPrecio.requestFocus();
+			txtPrecio.selectAll();
+		} else if (anc < 0) {
+			JOptionPane.showMessageDialog(this, "Ancho mínimo debe ser mayor que 0 cm");
+			txtAncho.requestFocus();
+			txtAncho.selectAll();
+		} else if (lar < 0) {
+			JOptionPane.showMessageDialog(this, "Largo mínimo debe ser mayor que 0 cm ");
+			txtLargo.requestFocus();
+			txtLargo.selectAll();
+		} else if (esp < 0) {
+			JOptionPane.showMessageDialog(this, "Espesor mínimo debe ser mayor que 0 mm");
+			txtEspesor.requestFocus();
+			txtEspesor.selectAll();
+		} else if (cano < 0) {
+			JOptionPane.showMessageDialog(this, "Cantidad óptima debe ser mayor que 0");
+			txtCanOptima.requestFocus();
+			txtCanOptima.selectAll();
+		} else {
+			modificarInformacionLadrillo(mod, pre, anc, lar, esp, cano);
+			dispose();
+		}
+	}
+	
+	double leerPrecio() {
+		return Double.parseDouble(txtPrecio.getText());
+
+	}  
+
+	double leerAncho() {
+		return Double.parseDouble(txtAncho.getText());
+
+	}  
+
+	double leerLargo() {
+		return Double.parseDouble(txtLargo.getText());
+
+	}  
+
+	double leerEspesor() {
+		return Double.parseDouble(txtEspesor.getText());
+
+	}  
+
+	int leerCano() {
+		return Integer.parseInt(txtCanOptima.getText());
+
+	}
+	
+	void modificarInformacionLadrillo(int mod, double pre, double anc, double lar, double esp, int cano) {
+		switch(mod) {
+		case 0: 
+			Tienda1.precio0 = Double.parseDouble(String.format("%.1f",pre));
+			Tienda1.ancho0 = anc;
+			Tienda1.largo0 = lar;
+			Tienda1.espesor0 = esp;
+			Tienda1.cantidadOptima0 = cano;
+			break;
+		case 1:
+			Tienda1.precio1 = Double.parseDouble(String.format("%.1f",pre));
+			Tienda1.ancho1 = Double.parseDouble(String.format("%.1f",anc));
+			Tienda1.largo1 = lar;
+			Tienda1.espesor1 = esp;
+			Tienda1.cantidadOptima1 = cano;
+			break;
+		case 2:
+			Tienda1.precio2 = Double.parseDouble(String.format("%.1f",pre));
+			Tienda1.ancho2 = Double.parseDouble(String.format("%.1f",anc));
+			Tienda1.largo2 = lar;
+			Tienda1.espesor2 = esp;
+			Tienda1.cantidadOptima2 = cano;
+             break;
+		case 3:
+			Tienda1.precio3 = Double.parseDouble(String.format("%.1f",pre));
+			Tienda1.ancho3 = Double.parseDouble(String.format("%.1f",anc));
+			Tienda1.largo3 = lar;
+			Tienda1.espesor3 = esp;
+			Tienda1.cantidadOptima3 = cano;
+            break;
+         default:
+        	Tienda1.precio4 = Double.parseDouble(String.format("%.1f",pre));
+ 			Tienda1.ancho4 = Double.parseDouble(String.format("%.1f",anc));
+ 			Tienda1.largo4 = Double.parseDouble(String.format("%.1f",anc));
+ 			Tienda1.espesor4 = esp;
+ 			Tienda1.cantidadOptima4 = cano;
+ 			break;
+		}
+	}
+
+
+/*
+	protected void actionPerformedBtnGrabar(ActionEvent e) {
+		double pre, anc, lar, esp;
+		int cano, mod;
+		mod = leerModelo();
+		pre = leerPrecio();
+		anc = leerAncho();
+		lar = leerLargo();
+		esp = leerEspesor();
+		cano = leerCano();
+	}
+	
+	protected void actionPerformedBtnGrabar(ActionEvent e) {
+		double pre;
+		pre = leerPrecio();
+		if(pre<0) {
+			JOptionPane.showMessageDialog(this, "Importe miniimo debe ser mayor que 0");
+			txtPrecio.requestFocus();
+			txtPrecio.selectAll();
+		}
+		else {
+			Tienda1.precio0 = pre;
+			dispose();
+		}
+	}
+	double leerPrecio() {
+		return Double.parseDouble(txtPrecio.getText());
+	} */
+}

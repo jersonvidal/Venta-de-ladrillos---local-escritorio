@@ -1,0 +1,135 @@
+package cibertec;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.UIManager;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class DialogoConsultar extends JDialog implements ActionListener {
+	private JLabel lblModelo;
+	private JComboBox<String> cboModelo;
+	private JButton btnCerrar;
+	private JLabel lblPrecio;
+	private JTextField txtPrecio;
+	private JLabel lblAncho;
+	private JTextField txtAncho;
+	private JLabel lblLargo;
+	private JTextField txtLargo;
+	private JLabel lblEspesor;
+	private JTextField txtEspesor;
+	private JLabel lblCanOptima;
+	private JTextField txtCanOptima;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					DialogoConsultar dialog = new DialogoConsultar();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public DialogoConsultar() {
+		setModal(true);
+		setTitle("Consultar ladrillo");
+		setBounds(100, 100, 476, 236);
+		getContentPane().setLayout(null);
+		
+		lblModelo = new JLabel("   Modelo");
+		lblModelo.setBounds(10, 25, 45, 22);
+		getContentPane().add(lblModelo);
+		
+		cboModelo = new JComboBox<String>();
+		cboModelo.setModel(new DefaultComboBoxModel<String>(new String[] {"Ladrillo  King Kong 18  Huecos", "Ladrillo  King Kong Macizo"}));
+		cboModelo.setBounds(150, 25, 187, 22);
+		getContentPane().add(cboModelo);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(363, 25, 89, 23);
+		getContentPane().add(btnCerrar);
+		
+		lblPrecio = new JLabel("Precio (S/)");
+		lblPrecio.setBounds(20, 58, 53, 14);
+		getContentPane().add(lblPrecio);
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setEditable(false);
+		txtPrecio.setBounds(150, 55, 187, 20);
+		getContentPane().add(txtPrecio);
+		txtPrecio.setColumns(10);
+		
+		lblAncho = new JLabel("Ancho (cm)");
+		lblAncho.setBounds(20, 87, 59, 14);
+		getContentPane().add(lblAncho);
+		
+		txtAncho = new JTextField();
+		txtAncho.setEditable(false);
+		txtAncho.setBounds(150, 84, 187, 20);
+		getContentPane().add(txtAncho);
+		txtAncho.setColumns(10);
+		
+		lblLargo = new JLabel("Largo (cm)");
+		lblLargo.setBounds(20, 112, 58, 14);
+		getContentPane().add(lblLargo);
+		
+		txtLargo = new JTextField();
+		txtLargo.setEditable(false);
+		txtLargo.setBounds(150, 109, 187, 20);
+		getContentPane().add(txtLargo);
+		txtLargo.setColumns(10);
+		
+		lblEspesor = new JLabel("Espesor (mm)");
+		lblEspesor.setBounds(20, 137, 71, 14);
+		getContentPane().add(lblEspesor);
+		
+		txtEspesor = new JTextField();
+		txtEspesor.setEditable(false);
+		txtEspesor.setBounds(150, 134, 187, 20);
+		getContentPane().add(txtEspesor);
+		txtEspesor.setColumns(10);
+		
+		lblCanOptima = new JLabel("Can. \u00D3ptima (millares)");
+		lblCanOptima.setBounds(20, 162, 113, 14);
+		getContentPane().add(lblCanOptima);
+		
+		txtCanOptima = new JTextField();
+		txtCanOptima.setEditable(false);
+		txtCanOptima.setBounds(150, 159, 187, 20);
+		getContentPane().add(txtCanOptima);
+		txtCanOptima.setColumns(10);
+
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		System.exit(0);
+		
+	}
+}
